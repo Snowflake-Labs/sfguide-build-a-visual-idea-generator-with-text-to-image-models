@@ -1,34 +1,26 @@
 # sfguide-build-a-visual-idea-generator-with-text-to-image-models
 A companion repo for the Snowflake Quickstart. This quickstart will guide you to build a Streamlit application that can be a Visual Concept or Idea Generator. The Streamlit app is powered by a Text-to-Image model that will be accessed via a Service function that calls a Model in the Snowflake Model Registry.
 
-## Getting Started
-### Prerequisited
-1. Cloud or Region that supports Container Runtime Notebooks
-2. Access to ["Large" GPU compute pools](https://docs.snowflake.com/en/sql-reference/sql/create-compute-pool) (ex: GPU_NV_L) or GPU VRAM over 31GB
 
-### Basic Instructions (For Streamlit UI)
-1. Run `1_set_up.sql` starting at Step 1
-2. Load the image model to registry and create a service by running `2b_concept_generator_as_a_service.ipynb` using the Notebook settings below.
-3. Run the streamlit app using Snowflake.
 
-### Basic Instructions (for quick demo in a Notebook)
-1. Run `1_set_up.sql` starting at Step 1
-2. Run `2a_concept_generator_without_service.ipynb` using the Notebook settings below.
+## Step-by-Step Guide
+For prerequisites, environment setup, step-by-step guide and instructions, please refer to the QuickStart Guide (link tbd).
 
-## Notebook Settings
-### General Tab
+## Other Notes
+### Notebook Settings
+#### General Tab
 * SQL Warehouse - Choose the warehouse created in Step 1
 * Python Environment - Run on Container
 * Runtime - GPU
 * Compute Pool - Choose the large pool created in Step 1 CONCEPT_GEN_POOL_L
 * Idle timeout - 1 hour
 
-### External Access Tab
+#### External Access Tab
 This may not appear when you create the notebook. After creation, click on the three dots in top right corner of Notebook and select Notebook Settings...
 * Toggle on all the EAI's created in Step 1
 * If you create additional EAIs, for say additional logo images from URLs, you will need to turn those on before calling from a notebook.
 
-## FAQ
+### FAQ
 #### 1. What if I get a CUDA out of memory error?
 Likely this happens when you do not have enough GPU to run the model. If you are OK with running the concept service in a notebook, simply replace the line similar to `pipeline.to('cuda')` with `pipeline.enable_sequential_cpu_offload()`. This will allow the model to only load components it really needs into GPU memory while keeping everything else via CPU. This may make generation slower.
 
